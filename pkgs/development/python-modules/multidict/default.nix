@@ -1,7 +1,7 @@
 { lib
 , fetchPypi
 , buildPythonPackage
-, pytestCheckHook, pytest-runner, pytest-cov
+, pytestCheckHook
 , isPy3k
 }:
 
@@ -9,14 +9,14 @@ buildPythonPackage rec {
   pname = "multidict";
   version = "5.2.0";
 
+  disabled = !isPy3k;
+
   src = fetchPypi {
     inherit pname version;
     sha256 = "0dd1c93edb444b33ba2274b66f63def8a327d607c6c790772f448a53b6ea59ce";
   };
 
-  checkInputs = [ pytestCheckHook pytest-runner pytest-cov ];
-
-  disabled = !isPy3k;
+  checkInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Multidict implementation";
